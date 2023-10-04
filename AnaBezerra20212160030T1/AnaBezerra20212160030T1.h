@@ -42,7 +42,5 @@ int q6(int numerobase, int numerobusca);
 DataQuebrada quebraData(char data[]);
 int isBissexto(int ano);
 int valida_data_numeros(int dia, int mes, int ano);
-int QuantidadeDeDiasMes(int mes, int ano);
-int QuantidadeDeDiasMesAnterior(int mes);
 
 //#endif AnaBezerra20212160030T1_H

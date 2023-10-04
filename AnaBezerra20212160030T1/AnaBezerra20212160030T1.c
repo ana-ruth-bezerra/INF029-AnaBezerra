@@ -47,6 +47,9 @@ int valida_data_numeros(int dia, int mes, int ano){
         return 0;
     }
   }
+  if(ano < 0)
+    return 0;
+  
   return 1;
 }
 
@@ -111,26 +114,6 @@ int q1(char data[]){
     return 1;
   else
     return 0;
-}
-
-int QuantidadeDeDiasMes(int mes, int ano){
-  int diasPorMes[] = {0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
-
-  if(mes == 2 && isBissexto(ano)){
-    return 29;
-  }else{
-    return diasPorMes[mes];
-  }
-}
-
-int QuantidadeDeDiasMesAnterior(int mes){
-  if(mes < 1 || mes > 12){
-    return -1;
-  }
-  
-  int diasPorMes[] = {0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
-  
-  return diasPorMes[mes - 1];
 }
 
 DiasMesesAnos q2(char datainicial[], char datafinal[]){
@@ -244,16 +227,16 @@ int q4(char *strTexto, char *strBusca, int posicoes[30]){
   return qtdOcorrencias;
 }
 
-int q5(int num) {
-    int N = 0;
-    
-    while (num > 0) {
-        int digito = num % 10;
-        N = N * 10 + digito;
-        num /= 10;
-    }
-    
-    return N;
+int q5(int num){
+  int N = 0;
+  
+  while(num > 0){
+    int digito = num % 10;
+    N = N * 10 + digito;
+    num /= 10;
+  }
+  
+  return N;
 }
 
 int q6(int numerobase, int numerobusca){
@@ -262,7 +245,7 @@ int q6(int numerobase, int numerobusca){
   int N = numerobusca;
 
   if(N == 0){
-    if (K == 0){
+    if(K == 0){
       return 1;
     }else{
       return 0;
