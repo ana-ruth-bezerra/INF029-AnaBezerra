@@ -168,27 +168,35 @@ int menuAluno(){
 
 int cadastroAluno(Aluno listaAluno[TAM_ALUNO], int qtdAluno){
   printf("Cadastrar Aluno\n");
+  
   if(qtdAluno == TAM_ALUNO){
+    
     return LISTA_CHEIA;
   }else{
     printf("Digite a matricula: \n");
     int matricula;
-    scanf("%d", &matricula);                
+    scanf("%d", &matricula);
+    
     if(matricula < 0){
+      
       return MATRICULA_INVALIDA;
     }
     listaAluno[qtdAluno].matricula = matricula;
     listaAluno[qtdAluno].ativo = 1;
+    
     return CAD_ALUNO_SUCESSO;
   }
 }
 
 void listarAluno(Aluno listaAluno[], int qtdAluno){
   printf("Listar Aluno\n");
+  
   if(qtdAluno == 0){
     printf("Lista de alunos vazia.\n");
   }else{
+    
     for(int i = 0; i < qtdAluno; i ++){
+      
       if(listaAluno[i].ativo == 1)
         printf("Matricula: %d\n", listaAluno[i].matricula);
     }
@@ -201,25 +209,35 @@ int atualizaAluno(Aluno listaAluno[], int qtdAluno){
   int matricula;
   scanf("%d", &matricula);
   int achou = 0;
+  
   if(matricula < 0){
+    
     return MATRICULA_INVALIDA;
   }else{
+    
     for(int i = 0; i < qtdAluno; i ++){
+      
       if(matricula == listaAluno[i].matricula && listaAluno[i].ativo){
         printf("Digite a nova matricula: \n");
         int novaMatricula;
         scanf("%d", &novaMatricula);
+        
         if(novaMatricula < 0){
+          
           return MATRICULA_INVALIDA;
         }  
         listaAluno[i].matricula = novaMatricula;
         achou = 1;
+        
         break;
       }
     }
+    
     if(achou)
+      
       return ATUALIZA_AL_SUCESS;
     else
+      
       return MATRICULA_INEXISTENTE;
   }
 }
@@ -230,29 +248,38 @@ int excluiAluno(Aluno listaAluno[], int qtdAluno){
   int matricula;
   scanf("%d", &matricula);
   int achou = 0;
+  
   if(matricula < 0){
+    
     return MATRICULA_INVALIDA;
   }else{
+    
     for(int i = 0; i < qtdAluno; i ++){
+      
       if(matricula == listaAluno[i].matricula){
         listaAluno[i].ativo = -1;
+        
         for(int j = i; j < qtdAluno - 1; j++){
           listaAluno[j].matricula = listaAluno[j + 1].matricula;
           listaAluno[j].sexo = listaAluno[j + 1].sexo;
           listaAluno[j].ativo = listaAluno[j + 1].ativo;
         }
         achou = 1;
+        
         break;
       }
     }
     if(achou)
+      
       return EXCLUI_ALUNO_SUCESS;
     else
+      
       return MATRICULA_INEXISTENTE;
   }
 }
 
-int validar_data(char data[]){ 
+int validar_data(char data[]){
+  
   return 1;
   int dia;
   int mes;
@@ -267,19 +294,26 @@ int validar_data(char data[]){
   for(i = 0; data[i] != '/' && i < 2; i++){
     sDia[i] = data[i];   
   }
-  
   sDia[i] = '\0';
+  
   strcpy(sDia, data);
+  
   int retorno = valida_data_numeros(dia, mes, ano);
+  
   return retorno;
 }
 
 int valida_data_numeros(int dia, int mes, int ano){
+  
   return 1;
+  
   if(dia < 1 || dia > 31)
+    
     return 0;
   if(mes < 1 || mes > 12)
+    
     return 0;
   if(ano <= 0)
+    
     return 0;
 }

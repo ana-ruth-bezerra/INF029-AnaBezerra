@@ -74,24 +74,31 @@ int main(){
   Disciplina* inicioListaDisciplina = NULL;
 	int opcao, retorno;
 	int sair = 0;
+  
 	while(!sair){
     opcao = menuGeral();
+    
     switch(opcao){
       case 0:{
         printf("Finalizando Escola\n");
+        
         finalizarEscola(inicioListaAluno);
         sair = 1;
+        
         break;
       }
       case 1:{
         mainAluno(&inicioListaAluno);
+        
         break;
       }
       case 2:{
         mainProfessor(&inicioListaProfessor);
+        
         break;
       case 3:{
         mainDisciplina(&inicioListaDisciplina);
+        
         break;
       }
       }default:{
@@ -104,22 +111,26 @@ int main(){
 int geraMatricula(){
 	static int num = 0;
 	num++;
+  
 	return num;
 }
 
 int menuGeral(){
   int opcao;
+  
   printf("Projeto Escola\n");
   printf("0 - Sair\n");
   printf("1 - Aluno\n");
   printf("2 - Professor\n");
   printf("3 - Disciplina\n");
   scanf("%d", &opcao);
+  
   return opcao;
 }
 
 int menuAluno(){
   int opcao;
+  
 	printf("\tMódulo de Aluno\n");
 	printf("\tDigite a opção: \n");
 	printf("0 - Voltar para o menu geral\n");
@@ -127,11 +138,13 @@ int menuAluno(){
 	printf("2 - Excluir Aluno\n");
 	printf("3 - Listar Alunos\n");
 	scanf("%d",&opcao);
+  
 	return opcao;
 }
 
 int menuProfessor(){
   int opcao;
+  
 	printf("\tMódulo de Professor\n");
 	printf("\tDigite a opção: \n");
 	printf("0 - Voltar para o menu geral\n");
@@ -139,11 +152,13 @@ int menuProfessor(){
 	printf("2 - Excluir Professor\n");
 	printf("3 - Listar Professor\n");
 	scanf("%d",&opcao);
+  
 	return opcao;
 }
 
 int menuDisciplina(){
   int opcao;
+  
 	printf("\tMódulo de Disciplina\n");
 	printf("\tDigite a opção: \n");
 	printf("0 - Voltar para o menu geral\n");
@@ -151,55 +166,72 @@ int menuDisciplina(){
 	printf("2 - Excluir Disciplina\n");
 	printf("3 - Listar Disciplina\n");
 	scanf("%d",&opcao);
+  
 	return opcao;
 }
 
 void mainAluno(Aluno** inicioListaAluno){
 	int opcao, retorno;
 	int sair = 0;
+  
 	while(!sair){
   opcao = menuAluno();
+    
   switch(opcao){
+    
     case 0:{
       sair = 1;
+      
       break;
     }
+    
     case 1:{
       retorno = inserirAluno(inicioListaAluno);
+      
       if(retorno == SUCESSO_CADASTRO){ 
         printf("Aluno cadastrado com sucesso\n");
       }else{
+        
         switch(retorno){
           case ERRO_CADASTRO_MATRICULA:{
             printf("Matrícula Inválida. Deve ser maior que 0.\n");
+            
             break;
           }
           case ERRO_CADASTRO_SEXO:{
             printf("Sexo Inválido. Digite 'm' ou 'M' para Masculino ou 'f' ou 'F' para Feminino.\n");
+            
             break;
           }
           case ERRO_DATA_INVALIDA:{
             printf("Data Inválida.\n");
+            
             break;
           }default:{
             printf("Erro desconhecido.\n");
           }
         }
       }  
+      
       break;
     }
+    
     case 2:{
       retorno = excluirAluno(inicioListaAluno);
-      if (retorno == SUCESSO_EXCLUSAO){ 
+      
+      if(retorno == SUCESSO_EXCLUSAO){ 
         printf("Aluno excluido com sucesso\n");
       }else{
+        
         switch(retorno){
           case LISTA_VAZIA:{
             printf("Lista Vazia.\n");
+            
             break;
           }
           case NAO_ENCONTRADO:{
             printf("Não foi encontrado o aluno com a matrícula digitada.\n");
+            
             break;
           }
           default:{
@@ -207,12 +239,17 @@ void mainAluno(Aluno** inicioListaAluno){
           }
         }
       }  
+      
       break;
     }
+    
     case 3:{
       listarAlunos(inicioListaAluno);
-      break;	
-    }default:{
+      
+      break;
+    }
+    
+    default:{
       printf("opcao inválida\n");
     }
   }
@@ -222,209 +259,268 @@ void mainAluno(Aluno** inicioListaAluno){
 void mainProfessor(Professor** inicioListaProfessor){
 	int opcao, retorno;
 	int sair = 0;
+  
 	while(!sair){
-  opcao = menuProfessor();
-  switch(opcao){
-    case 0:{
-      sair = 1;
-      break;
+    opcao = menuProfessor();
+    
+    switch(opcao){
+      
+      case 0:{
+        sair = 1;
+        
+        break;
+      }
+      
+      case 1:{
+        retorno = inserirProfessor(inicioListaProfessor);
+        
+        if(retorno == SUCESSO_CADASTRO){ 
+          printf("Professor cadastrado com sucesso\n");
+        }else{
+          
+          switch(retorno){
+            case ERRO_CADASTRO_MATRICULA:{
+              printf("Matrícula Inválida. Deve ser maior que 0.\n");
+              
+              break;
+            }
+            case ERRO_CADASTRO_SEXO:{
+              printf("Sexo Inválido. Digite 'm' ou 'M' para Masculino ou 'f' ou 'F' para Feminino.\n");
+              
+              break;
+            }
+            case ERRO_DATA_INVALIDA:{
+              printf("Data Inválida.\n");
+              
+              break;
+            }default:{
+              printf("Erro desconhecido.\n");
+            }
+          }
+        }  
+        
+        break;
+      }
+      
+      case 2:{
+        retorno = excluirProfessor(inicioListaProfessor);
+        
+        if(retorno == SUCESSO_EXCLUSAO){ 
+          printf("Professor excluido com sucesso\n");
+        }else{
+          
+          switch(retorno){
+            case LISTA_VAZIA:{
+              printf("Lista Vazia.\n");
+              
+              break;
+            }
+            case NAO_ENCONTRADO:{
+              printf("Não foi encontrado o professor com a matrícula digitada.\n");
+              
+              break;
+            }
+            default:{
+              printf("Erro desconhecido.\n");
+            }
+          }
+        } 
+        
+        break;
+      }
+      
+      case 3:{
+        listarProfessor(inicioListaProfessor);
+        
+        break;	
+      }
+      
+      default:{
+        printf("opcao invalida\n");
+      }
     }
-    case 1:{
-      retorno = inserirProfessor(inicioListaProfessor);
-      if (retorno == SUCESSO_CADASTRO){ 
-        printf("Professor cadastrado com sucesso\n");
-      }else{
-        switch(retorno){
-          case ERRO_CADASTRO_MATRICULA:{
-            printf("Matrícula Inválida. Deve ser maior que 0.\n");
-            break;
-          }
-          case ERRO_CADASTRO_SEXO:{
-            printf("Sexo Inválido. Digite 'm' ou 'M' para Masculino ou 'f' ou 'F' para Feminino.\n");
-            break;
-          }
-          case ERRO_DATA_INVALIDA:{
-            printf("Data Inválida.\n");
-            break;
-          }default:{
-            printf("Erro desconhecido.\n");
-          }
-        }
-      }  
-      break;
-    }
-    case 2:{
-      retorno = excluirProfessor(inicioListaProfessor);
-      if(retorno == SUCESSO_EXCLUSAO){ 
-        printf("Professor excluido com sucesso\n");
-      }else{
-        switch(retorno){
-          case LISTA_VAZIA:{
-            printf("Lista Vazia.\n");
-            break;
-          }
-          case NAO_ENCONTRADO:{
-            printf("Não foi encontrado o professor com a matrícula digitada.\n");
-            break;
-          }
-          default:{
-            printf("Erro desconhecido.\n");
-          }
-        }
-      }  
-      break;
-    }
-    case 3:{
-      listarProfessor(inicioListaProfessor);
-      break;	
-    }default:{
-      printf("opcao invalida\n");
-    }
-  }
 	}
 }
 
 void mainDisciplina(Disciplina** inicioListaDisciplina){
 	int opcao, retorno;
 	int sair = 0;
+  
 	while(!sair){
-  opcao = menuDisciplina();
-  switch(opcao){
-    case 0:{
-      sair = 1;
-      break;
+    opcao = menuDisciplina();
+    
+    switch(opcao){
+      
+      case 0:{
+        sair = 1;
+        
+        break;
+      }
+      
+      case 1:{
+        retorno = inserirDisciplina(inicioListaDisciplina);
+        
+        if(retorno == SUCESSO_CADASTRO){ 
+          printf("Disciplina cadastrada com sucesso\n");
+        }else{
+          switch(retorno){
+            case ERRO_CADASTRO_MATRICULA:{
+              printf("Matrícula Inválida. Deve ser maior que 0.\n");
+              
+              break;
+            }
+            case ERRO_CADASTRO_SEXO:{
+              printf("Sexo Inválido. Digite 'm' ou 'M' para Masculino ou 'f' ou 'F' para Feminino.\n");
+              
+              break;
+            }
+            case ERRO_DATA_INVALIDA:{
+              printf("Data Inválida.\n");
+              
+              break;
+            }default:{
+              printf("Erro desconhecido.\n");
+            }
+          }
+        }  
+        
+        break;
+      }
+      
+      case 2:{
+        retorno = excluirDisciplina(inicioListaDisciplina);
+        
+        if(retorno == SUCESSO_EXCLUSAO){ 
+          printf("Disciplina excluida com sucesso\n");
+        }else{
+          switch(retorno){
+            case LISTA_VAZIA:{
+              printf("Lista Vazia.\n");
+              
+              break;
+            }
+            case NAO_ENCONTRADO:{
+              printf("Não foi encontrado o professor com a matrícula digitada.\n");
+              
+              break;
+            }
+            default:{
+              printf("Erro desconhecido.\n");
+            }
+          }
+        }  
+        
+        break;
+      }
+      
+      case 3:{
+        listarDisciplina(inicioListaDisciplina);
+        
+        break;	
+      }
+      
+      default:{
+        printf("Opcao Invalida\n");
+      }
     }
-    case 1:{
-      retorno = inserirDisciplina(inicioListaDisciplina);
-      if(retorno == SUCESSO_CADASTRO){ 
-        printf("Disciplina cadastrada com sucesso\n");
-      }else{
-        switch(retorno){
-          case ERRO_CADASTRO_MATRICULA:{
-            printf("Matrícula Inválida. Deve ser maior que 0.\n");
-            break;
-          }
-          case ERRO_CADASTRO_SEXO:{
-            printf("Sexo Inválido. Digite 'm' ou 'M' para Masculino ou 'f' ou 'F' para Feminino.\n");
-            break;
-          }
-          case ERRO_DATA_INVALIDA:{
-            printf("Data Inválida.\n");
-            break;
-          }default:{
-            printf("Erro desconhecido.\n");
-          }
-        }
-      }  
-      break;
-    }
-    case 2:{
-      retorno = excluirDisciplina(inicioListaDisciplina);
-      if (retorno == SUCESSO_EXCLUSAO){ 
-        printf("Disciplina excluida com sucesso\n");
-      }else{
-        switch(retorno){
-          case LISTA_VAZIA:{
-            printf("Lista Vazia.\n");
-            break;
-          }
-          case NAO_ENCONTRADO:{
-            printf("Não foi encontrado o professor com a matrícula digitada.\n");
-            break;
-          }
-          default:{
-            printf("Erro desconhecido.\n");
-          }
-        }
-      }  
-      break;
-    }
-    case 3:{
-      listarDisciplina(inicioListaDisciplina);
-      break;	
-    }default:{
-      printf("Opcao Invalida\n");
-    }
-  }
 	}
 }
 
 void inserirAlunoNaLista(Aluno** inicio, Aluno* novoAluno){
   Aluno *atual;
-  if (*inicio == NULL)
+  
+  if(*inicio == NULL)
     *inicio = novoAluno;
   else{
     atual = *inicio;
+    
     while(atual->prox != NULL)
       atual = atual->prox;
     atual->prox = novoAluno;
     }
-    novoAluno->prox = NULL;
+  novoAluno->prox = NULL;
 }
 
 void inserirProfessorNaLista(Professor** inicio, Professor* novoProfessor){
   Professor *atual;
-  if (*inicio == NULL)
+  
+  if(*inicio == NULL)
     *inicio = novoProfessor;
   else{
     atual = *inicio;
     while(atual->prox != NULL)
       atual = atual->prox;
     atual->prox = novoProfessor;
-    }
-    novoProfessor->prox = NULL;
+  }
+  novoProfessor->prox = NULL;
 }
 
 void inserirDisciplinaNaLista(Disciplina** inicio, Disciplina* novaDisciplina){
   Disciplina *atual;
-  if (*inicio == NULL)
+  
+  if(*inicio == NULL)
     *inicio = novaDisciplina;
   else{
     atual = *inicio;
+    
     while(atual->prox != NULL)
       atual = atual->prox;
     atual->prox = novaDisciplina;
-    }
-    novaDisciplina->prox = NULL;
+  }
+  novaDisciplina->prox = NULL;
 }
 
 int inserirAluno(Aluno** inicio){
   int retorno = SUCESSO_CADASTRO;
   Aluno* novoAluno = (Aluno *)malloc(sizeof(Aluno));
+  
   printf("\n\tCadastro de Aluno\n");
   getchar();
+  
 	printf("Digite o nome: ");
   fgets(novoAluno->nome, 50, stdin); 
   size_t ln = strlen(novoAluno->nome) - 1;
+  
   if(novoAluno->nome[ln] == '\n')
     novoAluno->nome[ln] = '\0';
+  
   printf("Digite o sexo: ");
   scanf("%c", &novoAluno->sexo);
   novoAluno->sexo = toupper(novoAluno->sexo);
+
   if(novoAluno->sexo != 'M' && novoAluno->sexo != 'F'){
+    
     retorno = ERRO_CADASTRO_SEXO;
   }else{
     char data[11];
+    
     printf("Digite a data de nascimento: ");
     scanf("%s", novoAluno->data_nascimento.dataCompleta);
     getchar();
     int dataValida = validar_data(novoAluno->data_nascimento.dataCompleta);
+    
     if(dataValida == 0){
+      
       retorno = ERRO_DATA_INVALIDA;
     }else{
       printf("Digite o CPF: ");
       fgets(novoAluno->cpf, 15, stdin); 
       ln = strlen(novoAluno->cpf) - 1; 
+      
       if(novoAluno->cpf[ln] == '\n')
         novoAluno->cpf[ln] = '\0';
     }
   }
+  
   if(retorno == SUCESSO_CADASTRO){
     novoAluno->matricula = geraMatricula();
+    
     inserirAlunoNaLista(inicio, novoAluno);
+    
     return SUCESSO_CADASTRO;
   }else{
     free(novoAluno);
+    
     return retorno;
   }  
 }
@@ -432,40 +528,57 @@ int inserirAluno(Aluno** inicio){
 int inserirProfessor(Professor** inicio){
   int retorno = SUCESSO_CADASTRO;
   Professor* novoProfessor = (Professor *)malloc(sizeof(Professor));
+  
   printf("\n\tCadastro de Professor\n");
   getchar();
+  
 	printf("Digite o nome: ");
+  
   fgets(novoProfessor->nome, 50, stdin); 
   size_t ln = strlen(novoProfessor->nome) - 1;
+  
   if(novoProfessor->nome[ln] == '\n')
     novoProfessor->nome[ln] = '\0';
+  
   printf("Digite o sexo: ");
   scanf("%c", &novoProfessor->sexo);
   novoProfessor->sexo = toupper(novoProfessor->sexo);
+  
   if(novoProfessor->sexo != 'M' && novoProfessor->sexo != 'F'){
+    
     retorno = ERRO_CADASTRO_SEXO;
   }else{
     char data[11];
+    
     printf("Digite a data de nascimento: ");
     scanf("%s", novoProfessor->data_nascimento.dataCompleta);
+    
     getchar();
     int dataValida = validar_data(novoProfessor->data_nascimento.dataCompleta);
+    
     if(dataValida == 0){
+      
       retorno = ERRO_DATA_INVALIDA;
     }else{
       printf("Digite o CPF: ");
+      
       fgets(novoProfessor->cpf, 15, stdin); 
       ln = strlen(novoProfessor->cpf) - 1; 
+      
       if(novoProfessor->cpf[ln] == '\n')
         novoProfessor->cpf[ln] = '\0';
     }
   }
+  
   if(retorno == SUCESSO_CADASTRO){
     novoProfessor->matricula = geraMatricula();
+    
     inserirProfessorNaLista(inicio, novoProfessor);
+    
     return SUCESSO_CADASTRO;
   }else{
     free(novoProfessor);
+    
     return retorno;
   }  
 }
@@ -473,42 +586,59 @@ int inserirProfessor(Professor** inicio){
 int inserirDisciplina(Disciplina** inicio){
   int retorno = SUCESSO_CADASTRO;
   Disciplina* novaDisciplina = (Disciplina *)malloc(sizeof(Disciplina));
+  
   printf("\n\tCadastro de Disciplina\n");
+  
   getchar();
 	printf("Digite o nome da disciplina: ");
+  
   fgets(novaDisciplina->nome, 50, stdin); 
   size_t ln = strlen(novaDisciplina->nome) - 1;
+  
   if(novaDisciplina->nome[ln] == '\n')
     novaDisciplina->nome[ln] = '\0';
     printf("Digite o codigo da disciplina: ");
+  
     fgets(novaDisciplina->codigo, 15, stdin); 
     ln = strlen(novaDisciplina->codigo) - 1;
+  
     if(novaDisciplina->codigo[ln] == '\n')
       novaDisciplina->codigo[ln] = '\0';
   printf("Digite o semestre: ");
+  
   fgets(novaDisciplina->semestre, 50, stdin);
   printf("Digite o nome do professor: ");
   Disciplina *professor = malloc(sizeof(Disciplina));
-  fgets(&novaDisciplina->professor, 50, stdin);
+  
+  fgets(novaDisciplina->professor, 50, stdin);
+  
   if(retorno == SUCESSO_CADASTRO){
+    
     inserirDisciplinaNaLista(inicio, novaDisciplina);
+    
     return SUCESSO_CADASTRO;
   }else{
     free(novaDisciplina);
+    
     return retorno;
   }  
 }
 
 int excluirAlunoNaLista(Aluno** inicio, int matricula){
-	if (*inicio == NULL)
+  
+	if(*inicio == NULL)
+    
 		return LISTA_VAZIA;
 	Aluno* anterior = *inicio;
 	Aluno* atual = *inicio;
 	Aluno* proximo = atual->prox;
 	int achou = 0;
+  
 	while(atual != NULL){
-		if (atual->matricula == matricula){
+    
+		if(atual->matricula == matricula){
 			achou = 1;
+      
 			break;
 		}
 		anterior = atual;
@@ -516,68 +646,89 @@ int excluirAlunoNaLista(Aluno** inicio, int matricula){
 		if (atual != NULL)
 			proximo = atual->prox;
 	}
+  
 	if(achou){
+    
 		if(atual == *inicio)
 			*inicio = proximo;
 		else
 			anterior->prox = atual->prox;
+    
 		free(atual);
+    
 		return SUCESSO_EXCLUSAO;
 	}else
+    
 		return NAO_ENCONTRADO;
 }
 
 int excluirProfessorNaLista(Professor** inicio, int matricula){
-	if (*inicio == NULL)
+  
+	if(*inicio == NULL)
 		return LISTA_VAZIA;
+  
 	Professor* anterior = *inicio;
 	Professor* atual = *inicio;
 	Professor* proximo = atual->prox;
 	int achou = 0;
+  
 	while(atual != NULL){
-		if (atual->matricula == matricula){
+    
+		if(atual->matricula == matricula){
 			achou = 1;
+      
 			break;
 		}
 		anterior = atual;
 		atual = proximo;
-		if (atual != NULL)
+    
+		if(atual != NULL)
 			proximo = atual->prox;
 	}
 	if(achou){
+    
 		if(atual == *inicio)
 			*inicio = proximo;
 		else
 			anterior->prox = atual->prox;
+    
 		free(atual);
+    
 		return SUCESSO_EXCLUSAO;
 	}else
+    
 		return NAO_ENCONTRADO;
 }
 
 int excluirAluno(Aluno** inicio){
 	int matricula;
+  
 	printf("Digite a matrícula: ");    
   scanf("%d", &matricula);
   getchar();
+  
 	return excluirAlunoNaLista(inicio, matricula);
 }
 
 int excluirProfessor(Professor** inicio){
 	int matricula;
+  
 	printf("Digite a matrícula: ");    
   scanf("%d", &matricula);
   getchar();
+  
 	return excluirProfessorNaLista(inicio, matricula);
 }
 
 void listarAlunos(Aluno** inicio){
   int i;
   Aluno* alunoAtual = *inicio;
-  if (*inicio == NULL){
+  
+  if(*inicio == NULL){
     printf("Lista Vazia\n");
   }else{
     printf("\n\tAlunos Cadastrados\n");
+    
     do{
       printf("Matrícula: %d\n", alunoAtual->matricula);
       printf("Nome: %s\n", alunoAtual->nome);
@@ -585,6 +736,7 @@ void listarAlunos(Aluno** inicio){
       printf("Data Nascimento: %s\n", alunoAtual->data_nascimento.dataCompleta);
       printf("CPF: %s\n", alunoAtual->cpf);
       alunoAtual = alunoAtual->prox;
+      
     }while(alunoAtual != NULL);
   }
 }
@@ -592,10 +744,12 @@ void listarAlunos(Aluno** inicio){
 void listarProfessor(Professor** inicio){
   int i;
   Professor* professorAtual = *inicio;
-  if (*inicio == NULL){
+  
+  if(*inicio == NULL){
     printf("Lista Vazia\n");
   }else{
     printf("\n\tProfessores Cadastrados\n");
+    
     do{
       printf("Matrícula: %d\n", professorAtual->matricula);
       printf("Nome: %s\n", professorAtual->nome);
@@ -603,6 +757,7 @@ void listarProfessor(Professor** inicio){
       printf("Data Nascimento: %s\n", professorAtual->data_nascimento.dataCompleta);
       printf("CPF: %s\n", professorAtual->cpf);
       professorAtual = professorAtual->prox;
+      
     }while(professorAtual != NULL);
   }
 }
@@ -610,8 +765,10 @@ void listarProfessor(Professor** inicio){
 void liberarListaAluno(Aluno* inicio){
 	Aluno* atual = inicio;
 	Aluno* tmp;
+  
 	while(atual != NULL){
 		tmp = atual->prox;
+    
 		free(atual);
 		atual = tmp;
 	}
@@ -620,14 +777,17 @@ void liberarListaAluno(Aluno* inicio){
 void liberarListaProfessor(Professor* inicio){
 	Professor* atual = inicio;
 	Professor* tmp;
+  
 	while(atual != NULL){
 		tmp = atual->prox;
+    
 		free(atual);
 		atual = tmp;
 	}
 }
 
 int validar_data(char data[]){
+  
   return 1;
   int dia;
   int mes;
@@ -636,27 +796,36 @@ int validar_data(char data[]){
   char sMes[3];
   char sAno[5];
   int i;
+  
   for(i = 0; data[i] != '/' && i < 2; i++){
     sDia[i] = data[i];   
   }
   sDia[i] = '\0';
   strcpy(sDia, data);
   int retorno = valida_data_numeros(dia, mes, ano);
+  
   return retorno;
 }
 
 int valida_data_numeros(int dia, int mes, int ano){
+  
   return 1;
+  
   if(dia < 1 || dia > 31)
+    
     return 0;
   if(mes < 1 || mes > 12)
+    
     return 0;
   if(ano <= 0)
+    
     return 0;
 }
 
 void finalizarEscola(Aluno* inicio){
+  
 	liberarListaAluno(inicio);
+  
 }
 
 /*https://replit.com/@20231160043/mainc#functions/functions.h*/

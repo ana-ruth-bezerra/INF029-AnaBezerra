@@ -47,8 +47,6 @@ int valida_data_numeros(int dia, int mes, int ano){
         return 0;
     }
   }
-  if(ano < 0)
-    return 0;
   
   return 1;
 }
